@@ -20,4 +20,9 @@ Route::get('/order', function() {
 Route::get('/review-order', function() {
   return view('review-order');
 });
+
+
+Route::get('/{any}', function() {
+  return view('welcome');
+});
 ?>

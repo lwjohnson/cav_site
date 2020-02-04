@@ -1,12 +1,15 @@
 <!doctype html>
 <html>
   <head>
+    <!-- PAGE TITLE -->
     <title>Order Form</title>
 
     <link media="all" type="text/css" rel="stylesheet" href="//redstone.roanoke.edu/shared/template/public/assets/stylesheets/bootstrap.css">
     <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+    <!--JQUERY-->
     <script>
        function validateForm(){
          var x = document.forms["order"]["name"].value
@@ -53,7 +56,7 @@
        main();
      });
     </script>
-
+    <!--End Jquery-->
     <!-- Styles -->
     <style>
       .top-bar {
@@ -67,18 +70,44 @@
         float: right;
       }
     </style>
-
+    <!--End Styles-->
   </head>
 
   <body>
     <!--container for main page-->
     <div class = "main-container">
+      <!--Begin Header Bar -->
 
-      <!--header of page-->
       <div class="header-container container-fluid top-bar">
         <h1 style="margin-left:2.5%; margin-top: 2%;">The Cavern</h1>
         <h3 style="margin-left:5%;">Order Form</h3>
       </div>
+
+      <!--END Header Bar -->
+
+      <!--Begin Navigation Bar-->
+
+      <div class="row gutter" style="margin: 0px 5px 10px 5px;">
+        <div class="pull-right btn-group btn-group-justified btn-nav">
+          <a  href="http://www.roanoke.edu" class="btn btn-primary " style="background-color: #333333;">
+            <span class="fa fa-home" aria-hidden="true"></span>
+            <span class="hidden-xs">
+              Home
+            </span>
+          </a>
+          <a href="http://www.insideroanoke.com" class="btn btn-primary "  style="background-color: #333333;">
+            <span class="fa fa-send" aria-hidden="true"></span>
+            <span class="hidden-xs">
+              Inside
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!--End Navigation Bar-->
+
+      <!--Begin Content-->
+
       <!--Contianer for name, entree choice, condements, etc. -->
       <div class = "container-fluid padded">
 
@@ -207,5 +236,7 @@
           </div>
         </form>
       </div>
+      <!--End Content-->
+    </div> 
   </body>
 </html>
