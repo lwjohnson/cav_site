@@ -11,18 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/order', function() {
-  return view('order');
-});
-Route::get('/review-order', function() {
-  return view('review-order');
-});
+Route::get('/','HomeController@show');
+Route::get('/order','OrderController@show');
+Route::get('/review-order', 'ReviewController@show');
 
-
-Route::get('/{any}', function() {
-  return view('welcome');
-});
+Route::get('/{any}', 'HomeController@show');
 ?>
