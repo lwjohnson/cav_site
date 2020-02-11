@@ -54,7 +54,6 @@
       <!--End Navigation Bar-->
 
       <!--Begin Content-->
-      <h4><?= $order->body ?></h4>
       <div class="order_details">
         <?php
             function determine_entree() {
