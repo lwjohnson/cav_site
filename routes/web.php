@@ -12,8 +12,8 @@
 */
 
 Route::get('/','HomeController@show');
-Route::get('/order','OrderController@show');
-Route::get('/review-order', 'ReviewController@show');
+Route::get('/orderPage','OrderPageController@show');
+Route::get('/review-order/{order}', 'ReviewController@show');
 
 Route::get('/{any}', 'HomeController@show');
 ?>

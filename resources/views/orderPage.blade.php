@@ -112,7 +112,7 @@
       <div class = "container-fluid padded">
 
         <!--Entree radio button selection-->
-        <form name="order" onsubmit="return validateForm()" action="review-order" method="GET">
+        <form name="order" onsubmit="return validateForm()" action="review-order/1" method="GET">
           <div class="entree_type col-md-12">
             <label for="entree_type">Entree:</label>
             <div id="entree_type">
@@ -237,6 +237,6 @@
         </form>
       </div>
       <!--End Content-->
-    </div> 
+    </div>
   </body>
 </html>

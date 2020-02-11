@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-class OrderController
+
+class OrderPageController
 {
   public function show()
   {
-    return view('order');
+    return view('orderPage');
   }
 }
