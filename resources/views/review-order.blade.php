@@ -27,7 +27,7 @@
 
       <div  style="background-color: maroon;" class="header-container container-fluid top-bar">
         <h1 style="color: white; margin-left:2.5%; margin-top: 2%;">The Cavern</h1>
-        <h3 style="margin-left:5%;"> at <a target="_blank" href="https://www.roanoke.edu">Roanoke College</a></h3>
+        <h3 style="margin-left:5%;">Review Order</h3>
       </div>
 
       <!--END Header Bar -->
@@ -52,7 +52,7 @@
       </div>
 
       <!--End Navigation Bar-->
-
+      {{$order}}
       <!--Begin Content-->
       <div class="order_details">
         <?php

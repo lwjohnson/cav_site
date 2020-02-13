@@ -3,10 +3,20 @@ namespace App\Http\Controllers;
 
 class ReviewController
 {
-  public function show($orderid)
+  public function show($order)
   {
+    $orders = [
+      '1' => "Hi there",
+      '2' => "Goodbye"
+    ];
 
-   return view('review-order');
+    if(! array_key_exists($order, $orders)){
+      abort(404, 'Sorry that order was not found.');
+
+    }
+    return view('review-order',[
+      'order'=>$orders[$order]
+    ]);
   }
 }
 

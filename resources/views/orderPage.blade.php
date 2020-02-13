@@ -79,7 +79,7 @@
       <!--Begin Header Bar -->
 
       <div class="header-container container-fluid top-bar">
-        <h1 style="margin-left:2.5%; margin-top: 2%;">The Cavern</h1>
+        <h1 style="color: white; margin-left:2.5%; margin-top: 2%;">The Cavern</h1>
         <h3 style="margin-left:5%;">Order Form</h3>
       </div>
 
