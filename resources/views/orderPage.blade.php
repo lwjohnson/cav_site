@@ -112,7 +112,8 @@
       <div class = "container-fluid padded">
 
         <!--Entree radio button selection-->
-        <form name="order" onsubmit="return validateForm()" action="review-order/1" method="GET">
+        <form onsubmit="return validateForm()" action="order" method="POST">
+          @csrf
           <div class="entree_type col-md-12">
             <label for="entree_type">Entree:</label>
             <div id="entree_type">
@@ -223,8 +224,8 @@
                 <!--Fries container-->
                 <label for="fries">Fries</label>
                 <div id="fries">
-                    <input type="radio" name="fries" value="Yes" > Yes<br>
-                    <input type="radio" name="fries" value="No"> No<br>
+                    <input type="radio" name="fries" value="1" > Yes<br>
+                    <input type="radio" name="fries" value="0"> No<br>
                 </div>
               </div>
             </div>

@@ -12,8 +12,11 @@
 */
 
 Route::get('/','HomeController@show');
-Route::get('/orderPage','OrderPageController@show');
-Route::get('/review-order/{order}', 'ReviewController@show');
+
+Route::post('/order', 'ReviewController@store');
+Route::get('/orderPage','ReviewController@create');
+Route::get('/review-order/{orderid}', 'ReviewController@show');
+
 
 Route::get('/{any}', 'HomeController@show');
 ?>

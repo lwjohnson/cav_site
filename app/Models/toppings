@@ -1,3 +1,0 @@
-class Example extends toppings{}
-
-protected $exampleName = 'exampleDBName.tableName';
