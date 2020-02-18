@@ -77,7 +77,8 @@
         ?>
       </div>
       <!--End Content-->
-
+      <a href="./" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>
+      <a href="../orderPage" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Order</a>
     </div>
   </body>
 </html>

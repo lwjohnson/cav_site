@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Orders;
+use App\Http\Controllers\Auth;
 class ReviewController
 {
   public function create()
@@ -12,6 +13,9 @@ class ReviewController
 
   public function show($orderid)
   {
+    if($orderid == 0)
+      abort(404);
+      
     $order = Orders::where('id', $orderid)->first();
 
     if(! $order) {
@@ -54,20 +58,38 @@ class ReviewController
 
     $condiments = request()->condiments;
     $c="";
+    $r=0;
     foreach ($condiments as $value) {
-      if($value!="None")
+      if($r!=0)
         $c = $value . ", ".$c;
+      else {
+        if($value != "None"){
+          $c = $value . $c;
+          $r++;
+        }
+      }
     }
     if($c == "")
       $c = "None.";
 
     $order->condiments = $c;
 
+
     $toppings = request()->toppings;
     $t=".";
+    $r = 0;
     foreach ($toppings as $value) {
-      if($value!="None")
+      if($r!=0){
+        echo $value;
         $t = $value . ", ".$t;
+      }else {
+        echo $value;
+        if($value != "None"){
+          echo "hi";
+          $t = $value . $t;
+          $r++;
+        }
+      }
     }
     if($t == ".")
       $t = "None.";
