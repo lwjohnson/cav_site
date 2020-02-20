@@ -14,7 +14,7 @@
 Route::get('/','HomeController@show');
 
 Route::post('/order', 'ReviewController@store');
-Route::get('/orderPage','ReviewController@create');
+Route::get('/orderPage','OrderPageController@show');
 Route::get('/review-order/{orderid}', 'ReviewController@show');
 
 

@@ -14,6 +14,7 @@
        function validateForm(){
          var x = document.forms["order"]["name"].value
          var y = document.forms["order"]["fries"].value
+         alert("HIII")
          var t = true
          var response = ""
 
@@ -108,6 +109,7 @@
 
       <!--Begin Content-->
 
+
       <!--Contianer for name, entree choice, condements, etc. -->
       <div class = "container-fluid padded">
 
@@ -117,19 +119,25 @@
           <div class="entree_type col-md-12">
             <label for="entree_type">Entree:</label>
             <div id="entree_type">
-              <input type="radio" class ="entree_choice"  name="entree_choice" value="burger"> Burger<br>
-              <input type="radio" class="entree_choice" name="entree_choice" value="wrap"> Wrap<br>
+              <input type="radio" class ="entree_choice"  name="entree_choice" value="burger" required> Burger<br>
+              <input type="radio" class="entree_choice" name="entree_choice" value="wrap" required> Wrap<br>
             </div>
           </div>
           <br>
+
+          <div class="nameArea col-md-6">
+            <label for="name">Name</label>
+            <input id="name" method="post" class="form-control" name="name" style="margin-bottom: 5%;" type="text" value="{{old('name')}}">
+            @error('title')
+              <p class="help is-danger">{{$errors->first('title')}}</p>
+            @enderror
+          </div>
+
           <div class="rest">
             <!--Name and entree choice-->
             <div class="row">
               <!--name-->
-              <div class="nameArea col-md-6">
-                <label for="name">Name</label>
-                <input id="name" method="post" class="form-control" name="name" style="margin-bottom: 5%;" type="text">
-              </div>
+
 
               <!--Entrees-->
               <div class="entOptions col-md-6">
@@ -137,13 +145,11 @@
                 <div class="burger_stuff">
                   <label for="burgers">Burgers</label>
                   <select name="burger_choice" id="burgers" class="form-control">
-                    <option value="None">None</option>
-                    <option value="Hamburger">Hamburger</option>
-                    <option value="Black Bean Burger">Black Bean Burger</option>
-                    <option value="Spicy Chicken Sandwich">Spicy Chicken Sandwich</option>
-                    <option value="Grilled Chicken Sandwich">Grilled Chicken Sandwich</option>
-                    <option value="Crispy Chicken Sandwich">Crispy Chicken Sandwich</option>
-                    <option value="2x Peanut Butter And Jelly">2x Peanut Butter and Jelly</option>
+                    <?php foreach($burgers as $b):
+                      if($b->active ==1): ?>
+                        <option value="{{$b->entree}}">{{$b->entree}}</option>
+                      <?php endif;
+                    endforeach;?>
                   </select>
                 </div>
 
@@ -151,12 +157,12 @@
                 <div class="wraps">
                   <label for="wraps">Wraps</label>
                   <select name="wrap_choice" id="wraps" class="form-control">
-                    <option value="None">None</option>
-                    <option value="Turkey Wrap">Turkey Wrap</option>
-                    <option value="Spicy Chicken Wrap">Spicy Chicken Wrap</option>
-                    <option value="Grilled Chicken Wrap">Grilled Chicken Wrap</option>
-                    <option value="Crispy Chicken Wrap">Crispy Chicken Wrap</option>
-                    <option value="Veggie Wrap">Veggie Wrap</option>
+                    <?php foreach($wraps as $w):
+                      if($w->active ==1): ?>
+                        <option value="{{$w->entree}}">{{$w->entree}}</option>
+                      <?php endif;
+                    endforeach;?>
+
                   </select>
                 </div>
               </div>
@@ -170,40 +176,39 @@
               <label for="condiments">Condiments</label>
               <div id="condiments">
                 <div class="col-md-4">
-                  <input type="hidden" name="condiments[]" value="None">
-                  <input type="checkbox" method="post" name="condiments[]" value="Ranch"> Ranch<br>
-                  <input type="checkbox" method="post" name="condiments[]" value="Honey Mustard"> Honey Mustard<br>
-                  <input type="checkbox" method="post" name="condiments[]" value="Buffalo Sauce"> Buffalo Sauce<br>
-                  <br>
-                </div>
-                <div class="col-md-4">
-                  <input type="checkbox" method="post" name="condiments[]" value="Mayo"> Mayo<br>
-                  <input type="checkbox" method="post" name="condiments[]" value="Deli Mustard"> Deli Mustard<br>
-                  <input type="checkbox" method="post" name="condiments[]" value="Red Roasted Hummus"> Red Roasted Hummus<br>
-                  <br>
-                </div>
-                <div class="col-md-4">
-                  <input type="checkbox" method="post" name="condiments[]" value="Ketchup"> Ketchup<br>
-                  <input type="checkbox" method="post" name="condiments[]" value="Bbq"> BBQ<br>
-                  <input type="checkbox" method="post" name="condiments[]" value="Texas Pete"> Texas Pete<br>
-                </div>
+                <?php
+                $count = 3;
+                foreach ($condiments as $c):
+                  if($c->active == 1):
+                    if($count == 0):?>
+                    </div>
+                      <div class="col-md-4">
+                      <?php $count = 3;
+                    endif;?>
+                    <input type="checkbox" method="post" name="condiments[]" value="{{$c->condiment}}">{{$c->condiment}}<br>
+                    <?php $count=$count - 1;
+                  endif;
+                endforeach; ?>
               </div>
             </div>
+          </div>
 
+
+            <hr/>
             <!-- container for toppings, cheese, and fries -->
             <div class="row t_c_f">
               <!--Seperation from condiments to Toppings-->
-              <hr/>
+
               <!--Toppings container-->
               <div class="col-md-6">
                 <label for="toppings">Toppings</label>
                 <div class="toppings">
                   <input type="hidden" name="toppings[]" value="None">
-                  <input type="checkbox" method="post" name="toppings[]" value="Tomato"> Tomato<br>
-                  <input type="checkbox" method="post" name="toppings[]" value="Lettuce"> Lettuce<br>
-                  <input type="checkbox" method="post" name="toppings[]" value="Red onion"> Red Onion<br>
-                  <input type="checkbox" method="post" name="toppings[]" value="Pickles"> Pickles<br>
-                  <input type="checkbox" method="post" name="toppings[]" value="Cucumbers"> Cucumbers<br>
+                  <?php foreach ($toppings as $topping):
+                    if($topping->active == 1) : ?>
+                    <input type="checkbox" method="post" name="toppings[]" value="{{$topping->topping}}">{{$topping->topping}}<br>
+                    <?php endif;
+                  endforeach; ?>
                   <br>
                 </div>
               </div>
@@ -224,15 +229,15 @@
                 <!--Fries container-->
                 <label for="fries">Fries</label>
                 <div id="fries">
-                    <input type="radio" name="fries" value="1" > Yes<br>
-                    <input type="radio" name="fries" value="0"> No<br>
+                    <input type="radio" name="fries" value="1" required> Yes<br>
+                    <input type="radio" name="fries" value="0" required> No<br>
                 </div>
               </div>
             </div>
             <br>
 
             <!--Submit button-->
-            <button type="submit" class="btn btn-default submit" value="Submit Order">Place Order
+            <button type="submit" class="btn btn-default submit" value="Submit Order">Place Order</button>
             <br><br>
           </div>
         </form>

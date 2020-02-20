@@ -8,19 +8,16 @@ class ReviewController
 {
   public function create()
   {
-    return view('orderPage');
+
   }
 
   public function show($orderid)
   {
     if($orderid == 0)
       abort(404);
-      
-    $order = Orders::where('id', $orderid)->first();
 
-    if(! $order) {
-      abort(404);
-    }
+    $order = Orders::findOrFail($orderid);
+
 
     return view('review-order', [
       'order'=>$order->id,
@@ -37,7 +34,14 @@ class ReviewController
   {
     date_default_timezone_set('America/New_York');
 
+    request()->validate([
+      'name'=>['required', 'min:2', 'max:49'],
+      'entree_choice'=>'required',
+      'fries'=>'required'
+    ]);
+
     $order = new Orders();
+
     $count = 1;
     $l = Orders::where('id', $count)->first();
     while($l != null){
@@ -59,18 +63,18 @@ class ReviewController
     $condiments = request()->condiments;
     $c="";
     $r=0;
-    foreach ($condiments as $value) {
-      if($r!=0)
-        $c = $value . ", ".$c;
-      else {
-        if($value != "None"){
+    if($condiments != null) {
+      foreach ($condiments as $value) {
+        if($r!=0)
+          $c = $value . ", ".$c;
+        else {
           $c = $value . $c;
           $r++;
         }
       }
     }
     if($c == "")
-      $c = "None.";
+      $c = "None";
 
     $order->condiments = $c;
 
@@ -92,7 +96,7 @@ class ReviewController
       }
     }
     if($t == ".")
-      $t = "None.";
+      $t = "None";
 
     $order->toppings = $t;
 
