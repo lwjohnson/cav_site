@@ -11,6 +11,32 @@
 |
 */
 
+
+/**
+ * Login route
+ */
+Route::get('login', function() {
+	$returnURL = Session::get('returnURL', Request::url() . '/../');
+	return Auth::redirectToLogin($returnURL);
+});
+
+/**
+ * Logout route
+ */
+Route::get('logout', function() {
+	Auth::logout();
+	$returnURL = Request::url() . '/../';
+	return Auth::redirectToLogout($returnURL);
+});
+
+
+
+Route::middleware('force_login')->group(function () {
+  Route::get('/', function () {
+    return view('index');
+  });
+});
+
 Route::get('/','HomeController@show');
 
 Route::post('/order', 'ReviewController@store');
