@@ -1,15 +1,17 @@
 
+
 <html>
   <head>
     <!-- PAGE TITLE -->
       <title>The Cavern</title>
-
 
     <link media="all" type="text/css" rel="stylesheet" href="//redstone.roanoke.edu/shared/template/public/assets/stylesheets/bootstrap.css">
     <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+
   </head>
 
   <body>
@@ -18,7 +20,12 @@
 
       <div  style="background-color: maroon;" class="header-container container-fluid top-bar">
         <h1 style="color: white; margin-left:2.5%; margin-top: 2%;">The Cavern</h1>
-        <h3 style="margin-left:5%;"> at <a target="_blank" href="https://www.roanoke.edu">Roanoke College</a></h3>
+        <h3 style="margin-left:5%;"> at <a target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
+          <p style=" margin-right: 5%; float: right;">
+          <?php
+          if(!RCAuth::check()): ?>
+            <a target="_blank" href="https://login.roanoke.edu/login">Login</a>
+        <?php endif;?></p></h3>
       </div>
 
       <!--End Header-->
@@ -116,6 +123,7 @@
       </div>
 
       <!--End Content-->
+      
     </div>
   </body>
 </html>
