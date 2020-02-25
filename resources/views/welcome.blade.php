@@ -57,8 +57,8 @@
               <p><h4 style="color: black;"> The Cavern, our "grab and go" eatery located on the lower level of the Colket Center, is operated by RC Dining Services. Guests can purchase drinks, burgers, salads, wraps, subs, etc., or use the meal plan to obtain lunch or dinner Monday through Friday from 11:00 am to 11:00 pm and Saturday evenings from 5:00 pm to 11:00 pm. "Trade Meals" are designed as meal equivalents for those on the meal plan.</h4></p>
               <p><h4 style="color: black;">The Cavern also offers staging, lighting and sound systems to accommodate dances, karaoke, bingo, poetry readings and any other events organized by the college community.</h4></p>
               <form target="_blank">
-                <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="menu" onclick=" window.open('https://www.roanoke.edu/inside/a-z_index/dining_services/the_cavern/cavern_menu', '_blank'); return false;">View Menu</button>
-                <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="order" onclick=" window.open('orderPage','_blank'); return false;"> Place Order</button>
+                <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="menu" onclick="location.reload();location.href='https://www.roanoke.edu/inside/a-z_index/dining_services/the_cavern/cavern_menu'">View Menu</button>
+                <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="order" onclick="location.reload();location.href='orderPage'"> Place Order</button>
               </form>
             </div>
           </div>

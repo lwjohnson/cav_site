@@ -4,32 +4,16 @@
     <!-- PAGE TITLE -->
     <title>Order Form</title>
 
-    <link media="all" type="text/css" rel="stylesheet" href="//redstone.roanoke.edu/shared/template/public/assets/stylesheets/bootstrap.css">
-    <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link media="all" type="text/css" rel="stylesheet"
+      href="//redstone.roanoke.edu/shared/template/public/assets/stylesheets/bootstrap.css">
+    <link media="all" type="text/css" rel="stylesheet"
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <!--JQUERY-->
     <script>
-       function validateForm(){
-         var x = document.forms["order"]["name"].value
-         var y = document.forms["order"]["fries"].value
-         alert("HIII")
-         var t = true
-         var response = ""
 
-         if(x==""){
-           response+= "\nName must be filled out."
-           t = false
-         }
-         if(y==""){
-           response+= "\nFries must be filled out."
-           t = false
-         }
-         if (response != "")
-           alert(response)
-         return t
-       }
      $(document).ready(function(){
        $(".entree_choice").click(() => {
            var val = $("input[name=entree_choice]:checked").val();
@@ -90,13 +74,15 @@
 
       <div class="row gutter" style="margin: 0px 5px 10px 5px;">
         <div class="pull-right btn-group btn-group-justified btn-nav">
-          <a  href="http://www.roanoke.edu" class="btn btn-primary " style="background-color: #333333;">
+          <a  href="http://www.roanoke.edu" class="btn btn-primary "
+           style="background-color: #333333;">
             <span class="fa fa-home" aria-hidden="true"></span>
             <span class="hidden-xs">
               Home
             </span>
           </a>
-          <a href="http://www.insideroanoke.com" class="btn btn-primary "  style="background-color: #333333;">
+          <a href="http://www.insideroanoke.com" class="btn btn-primary "
+           style="background-color: #333333;">
             <span class="fa fa-send" aria-hidden="true"></span>
             <span class="hidden-xs">
               Inside
@@ -114,31 +100,34 @@
       <div class = "container-fluid padded">
 
         <!--Entree radio button selection-->
-        <form onsubmit="return validateForm()" action="order" method="POST">
+        <form onsubmit="" action="order" method="POST">
           @csrf
-          <div class="entree_type col-md-12">
+          <div class="nameArea col-md-6">
+            <label for="name">Name</label>
+            <input id="name" method="post" class="form-control" name="name" type="text"
+              value="{{old('name')}}" required>
+
+              <p class="is-danger"><?php echo $errors->first(); ?></p>
+
             <label for="entree_type">Entree:</label>
             <div id="entree_type">
-              <input type="radio" class ="entree_choice"  name="entree_choice" value="burger" required> Burger<br>
-              <input type="radio" class="entree_choice" name="entree_choice" value="wrap" required> Wrap<br>
+              <input type="radio" class ="entree_choice"  name="entree_choice"
+                value="burger" required> Burger<br>
+              <input type="radio" class="entree_choice" name="entree_choice"
+                value="wrap" required> Wrap<br>
             </div>
+
           </div>
           <br>
 
-          <div class="nameArea col-md-6">
-            <label for="name">Name</label>
-            <input id="name" method="post" class="form-control" name="name" style="margin-bottom: 5%;" type="text" value="{{old('name')}}">
-            @error('title')
-              <p class="help is-danger">{{$errors->first('title')}}</p>
-            @enderror
-          </div>
+
 
           <div class="rest">
             <!--Name and entree choice-->
             <div class="row">
               <!--name-->
 
-
+              <div class="col-md-6">
               <!--Entrees-->
               <div class="entOptions col-md-6">
                 <!--Burger options and select button-->
@@ -167,6 +156,7 @@
                 </div>
               </div>
             </div>
+          </div>
 
 
             <!--Condiments selection-->
@@ -185,7 +175,8 @@
                       <div class="col-md-4">
                       <?php $count = 3;
                     endif;?>
-                    <input type="checkbox" method="post" name="condiments[]" value="{{$c->condiment}}">{{$c->condiment}}<br>
+                    <input type="checkbox" method="post" name="condiments[]"
+                      value="{{$c->condiment}}">{{$c->condiment}}<br>
                     <?php $count=$count - 1;
                   endif;
                 endforeach; ?>
@@ -206,7 +197,8 @@
                   <input type="hidden" name="toppings[]" value="None">
                   <?php foreach ($toppings as $topping):
                     if($topping->active == 1) : ?>
-                    <input type="checkbox" method="post" name="toppings[]" value="{{$topping->topping}}">{{$topping->topping}}<br>
+                    <input type="checkbox" method="post" name="toppings[]"
+                      value="{{$topping->topping}}">{{$topping->topping}}<br>
                     <?php endif;
                   endforeach; ?>
                   <br>
@@ -229,7 +221,7 @@
                 <!--Fries container-->
                 <label for="fries">Fries</label>
                 <div id="fries">
-                    <input type="radio" name="fries" value="1" required> Yes<br>
+                    <input type="radio" name="fries" value="1" > Yes<br>
                     <input type="radio" name="fries" value="0" required> No<br>
                 </div>
               </div>
@@ -237,7 +229,8 @@
             <br>
 
             <!--Submit button-->
-            <button type="submit" class="btn btn-default submit" value="Submit Order">Place Order</button>
+            <button type="submit" class="btn btn-default submit"
+              value="Submit Order">Place Order</button>
             <br><br>
           </div>
         </form>

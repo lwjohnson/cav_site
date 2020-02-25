@@ -17,16 +17,16 @@
  */
 Route::get('login', function() {
 	$returnURL = Session::get('returnURL', Request::url() . '/../');
-	return Auth::redirectToLogin($returnURL);
+	return RCAuth::redirectToLogin($returnURL);
 });
 
 /**
  * Logout route
  */
 Route::get('logout', function() {
-	Auth::logout();
+	RCAuth::logout();
 	$returnURL = Request::url() . '/../';
-	return Auth::redirectToLogout($returnURL);
+	return RCAuth::redirectToLogout($returnURL);
 });
 
 
