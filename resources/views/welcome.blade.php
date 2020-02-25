@@ -1,59 +1,41 @@
+@extends('template')
+
+@section('title')
+  The Cavern
+@endsection
 
 
-<html>
-  <head>
-    <!-- PAGE TITLE -->
-      <title>The Cavern</title>
-
-    <link media="all" type="text/css" rel="stylesheet" href="//redstone.roanoke.edu/shared/template/public/assets/stylesheets/bootstrap.css">
-    <link media="all" type="text/css" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+@section('page_title')
+        The Cavern
+@endsection
 
 
-  </head>
+@section('heading')
+        at <a style="color:gray;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
+        <p style=" margin-right: 5%; float: right;">
+        <?php
+        if(!RCAuth::check()): ?>
+          <a style="color:gray;" target="_blank" href="https://login.roanoke.edu/login">Login</a>
+      <?php endif;?></p></h3>
+    </div>
+@endsection
 
-  <body>
-    <div class = "main-container">
-      <!--Begin Header Bar -->
-
-      <div  style="background-color: maroon;" class="header-container container-fluid top-bar">
-        <h1 style="color: white; margin-left:2.5%; margin-top: 2%;">The Cavern</h1>
-        <h3 style="margin-left:5%;"> at <a target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
-          <p style=" margin-right: 5%; float: right;">
-          <?php
-          if(!RCAuth::check()): ?>
-            <a target="_blank" href="https://login.roanoke.edu/login">Login</a>
-        <?php endif;?></p></h3>
-      </div>
 
       <!--End Header-->
 
       <!--Begin Navigation Bar-->
 
-      <div class="row gutter" style="margin: 0px 5px 10px 5px;">
-        <div class="pull-right btn-group btn-group-justified btn-nav">
-          <a  href="http://www.roanoke.edu" class="btn btn-primary " style="background-color: #333333;">
-            <span class="fa fa-home" aria-hidden="true"></span>
-            <span class="hidden-xs">
-              Home
-            </span>
-          </a>
-          <a href="http://www.insideroanoke.com" class="btn btn-primary "  style="background-color: #333333;">
-            <span class="fa fa-send" aria-hidden="true"></span>
-            <span class="hidden-xs">
-              Inside
-            </span>
-          </a>
-        </div>
-      </div>
+@php
+        $side_navigation = [
+          '<span class="far fa-home" aria-hidden="true"></span> Home'=>'https://www.roanoke.edu',
+          'Inside' =>'http://www.insideroanoke.com/'];
+@endphp
 
       <!--End Navigation Bar-->
 
       <!--Begin Content-->
+@section('content')
 
-      <div class="container-fluid padded">
         <div class="row">
           <div class="col-md-5">
             <img style="width: 100%; float:left;" class="image1" src="https://www.roanoke.edu/images/diningservices/IMG_1620.JPG"></img>
@@ -121,9 +103,5 @@
             </div>
           </div>
       </div>
-
       <!--End Content-->
-      
-    </div>
-  </body>
-</html>
+@endsection
