@@ -23,6 +23,7 @@ class ReviewController
       'order'=>$order->id,
       'name'=>$order->name,
       'created'=>$order->created,
+      'entree'=>$order->entree,
       'condiments'=>$order->condiments,
       'toppings'=> $order->toppings,
       'cheese'=>$order->cheese,

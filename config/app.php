@@ -137,12 +137,10 @@ return [
     'providers' => [
 
 
-        roanokecollege\Auth\AuthServiceProvider::class,
-        roanokecollege\mustang_builder\MustangBuilderProvider::class,
+        rcwebdevelopers\Auth\AuthServiceProvider::class,
         /*
          * Laravel Framework Service Providers...
          */
-
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
@@ -193,8 +191,8 @@ return [
 
     'aliases' => [
 
-        'MustangBuilder' => roanokecollege\mustang_builder\facades\MustangBuilderFacade::class,
-        'RCAuth' => roanokecollege\Auth\Facades\Auth::class,
+
+        'RCAuth' => rcwebdevelopers\Auth\Facades\Auth::class,
 
 
         'App' => Illuminate\Support\Facades\App::class,

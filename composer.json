@@ -12,7 +12,6 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^2.0",
-        "roanokecollege/form_builder": "*",
         "roanokecollege/authentication": "*"
     },
     "require-dev": {
@@ -32,15 +31,7 @@
     {
       "type": "vcs",
       "url": "git@github.com:roanokecollege/authentication.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:roanokecollege/form_builder.git"
-    },
-    {
-      "type": "vcs",
-      "url": "git@github.com:roanokecollege/mustang_builder.git"
-     }
+    }
    ],
 
 

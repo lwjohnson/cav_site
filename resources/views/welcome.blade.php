@@ -1,7 +1,4 @@
 
-
-</template>')
-<!doctype html>
 <html>
   <head>
     <!-- PAGE TITLE -->

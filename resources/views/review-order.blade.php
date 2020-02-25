@@ -70,6 +70,7 @@
             echo "<h3>Order Number: $order\n</h3>";
             echo "<h4>Created on: $created.\n</h4>";
             echo "<h4>For: $name.\n</h4>";
+            echo "<h4>Entree: $entree.\n</h4>";
             echo "<h4>Condiments: $condiments.\n</h4>";
             echo "<h4>Toppings: $toppings\n</h4>";
             echo "<h4>Cheese: $cheese.</h4>";
