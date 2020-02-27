@@ -6,9 +6,13 @@ use App\Toppings;
 use App\Condiments;
 use App\Wraps;
 use App\Burgers;
+use RCAuth;
+use Redirect;
+use Request;
 
 class OrderPageController
 {
+
   public function show()
   {
     return view('orderPage', [
@@ -16,7 +20,6 @@ class OrderPageController
       'condiments'=>Condiments::all(),
       'wraps'=>Wraps::all(),
       'burgers'=>Burgers::all()
-
     ]);
   }
 }

@@ -11,7 +11,20 @@
 
 
 @section('heading')
-        Order Page
+    Order Page
+        <p style=" margin-right: 5%; float: right;">
+          <?php
+          if (RCAuth::check() || RCAuth::attempt()):
+            echo 'Logged in as ' . RCAuth::user()->username;
+            $loggedin = 1;
+          else: ?>
+          <a style="color:gray;" onclick="location.reload();location.href='https://login.roanoke.edu/login'">Login</a>
+          <?php
+          $loggedin = 0;
+         endif;
+          ?>
+    </p>
+
 @endsection
 
 
@@ -42,28 +55,34 @@
          $(".rest").show();
        }
    });
+
+
+
+
    function main(){
+
      $(".condiment").hide();
      $(".burgers").hide();
      $(".wraps").hide();
      $(".t_c_f").hide();
      $(".rest").hide();
+
    }
    main();
  });
 </script>
   <!--End Jquery-->
-
+    <?php if($loggedin): ?>
     <!--Contianer for name, entree choice, condements, etc. -->
-    <div class = "container-fluid padded">
+    <div  class="all" class = "container-fluid padded">
 
       <!--Entree radio button selection-->
       <form onsubmit="" action="order" method="POST">
         @csrf
+        <input type="hidden" name="name" value="<?php echo RCAuth::user()->username;?>">
         <div class="nameArea col-md-6">
-          <label for="name">Name</label>
-          <input id="name" method="post" class="form-control" name="name" type="text"
-            value="{{old('name')}}" required>
+          Order For: <?php echo RCAuth::user()->username;?>
+
 
             <p class="is-danger"><?php echo $errors->first(); ?></p>
 
@@ -193,6 +212,11 @@
         </div>
       </form>
     </div>
+  <?php else: ?>
+    <div class="login">
+      <h3>Must Login before ordering.</h3>
+    </div>
+  <?php endif;?>
 
 @endsection
 

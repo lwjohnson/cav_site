@@ -10,7 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Toppings;
+use App\Condiments;
+use App\Wraps;
+use App\Burgers;
 
+
+Route::get('/','HomeController@show');
 
 /**
  * Login route
@@ -24,23 +30,20 @@ Route::get('login', function() {
  * Logout route
  */
 Route::get('logout', function() {
+
 	RCAuth::logout();
-	$returnURL = Request::url() . '/../';
-	return RCAuth::redirectToLogout($returnURL);
+	$returnURL = "https://login.roanoke.edu/logout";
+	return Redirect::to($returnURL);
 });
 
 
 
-Route::middleware('force_login')->group(function () {
-  Route::get('/', function () {
-    return view('index');
-  });
-});
 
-Route::get('/','HomeController@show');
 
-Route::post('/order', 'ReviewController@store');
-Route::get('/orderPage','OrderPageController@show');
+Route::post('/order','ReviewController@create');
+
+Route::get('/orderPage', 'OrderPageController@show');
+
 Route::get('/review-order/{orderid}', 'ReviewController@show');
 
 

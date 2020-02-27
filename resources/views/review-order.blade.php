@@ -11,13 +11,18 @@
 
 
 @section('heading')
-        at <a style="color:gray;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
-        <p style=" margin-right: 5%; float: right;">
-        <?php
-        if(!RCAuth::check()): ?>
-          <a style="color:gray;" target="_blank" href="https://login.roanoke.edu/login">Login</a>
-      <?php endif;?></p></h3>
-    </div>
+at <a style="color:gray;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
+<p style=" margin-right: 5%; float: right;">
+  <?php
+  if (RCAuth::attempt()):
+    echo 'Logged in as ' . RCAuth::user()->username;
+    ?>
+    <a style="color:gray;" href="https://login.roanoke.edu/logout">Logout</a>
+  <?php else: ?>
+  <a style="color:gray;" href="https://login.roanoke.edu/login">Login</a>
+<?php endif;
+  ?>
+</p>
 @endsection
 
 
@@ -60,7 +65,7 @@
   ?>
 </div>
 <!--End Content-->
-<a href="./" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>
+<a href="../" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>
 <a href="../orderPage" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Order</a>
 
 @endsection

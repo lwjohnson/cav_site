@@ -8,31 +8,6 @@ class ReviewController
 {
   public function create()
   {
-
-  }
-
-  public function show($orderid)
-  {
-    if($orderid == 0)
-      abort(404);
-
-    $order = Orders::findOrFail($orderid);
-
-
-    return view('review-order', [
-      'order'=>$order->id,
-      'name'=>$order->name,
-      'created'=>$order->created,
-      'entree'=>$order->entree,
-      'condiments'=>$order->condiments,
-      'toppings'=> $order->toppings,
-      'cheese'=>$order->cheese,
-      'fries'=>$order->fries
-    ]);
-  }
-
-  public function store()
-  {
     date_default_timezone_set('America/New_York');
 
     request()->validate([
@@ -60,7 +35,6 @@ class ReviewController
     else
       $order->entree = request()->wrap_choice;
 
-
     $condiments = request()->condiments;
     $c="";
     $r=0;
@@ -76,9 +50,7 @@ class ReviewController
     }
     if($c == "")
       $c = "None";
-
     $order->condiments = $c;
-
 
     $toppings = request()->toppings;
     $t=".";
@@ -98,16 +70,37 @@ class ReviewController
     }
     if($t == ".")
       $t = "None";
-
     $order->toppings = $t;
-
     $order->cheese = request()->cheese;
-
     $order->fries = request()->fries;
 
     $order->save();
-
     return redirect('/review-order/' . $lastid);
+  }
+
+  public function show($orderid)
+  {
+    if($orderid == 0)
+      abort(404);
+
+    $order = Orders::findOrFail($orderid);
+
+
+    return view('review-order', [
+      'order'=>$order->id,
+      'name'=>$order->name,
+      'created'=>$order->created,
+      'entree'=>$order->entree,
+      'condiments'=>$order->condiments,
+      'toppings'=> $order->toppings,
+      'cheese'=>$order->cheese,
+      'fries'=>$order->fries
+    ]);
+  }
+
+  public function store()
+  {
+
   }
 
 
@@ -115,8 +108,6 @@ class ReviewController
   {
 
   }
-
-
 
 
 }

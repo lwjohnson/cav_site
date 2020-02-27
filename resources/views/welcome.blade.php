@@ -13,11 +13,16 @@
 @section('heading')
         at <a style="color:gray;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
         <p style=" margin-right: 5%; float: right;">
-        <?php
-        if(!RCAuth::check()): ?>
-          <a style="color:gray;" target="_blank" href="https://login.roanoke.edu/login">Login</a>
-      <?php endif;?></p></h3>
-    </div>
+          <?php
+          if (RCAuth::attempt()):
+            echo 'Logged in as ' . RCAuth::user()->username;
+            ?>
+            <a style="color:gray;" onclick="location.reload();location.href='logout'">Logout</a>
+          <?php else: ?>
+          <a style="color:gray;" onclick="location.reload();location.href='https://login.roanoke.edu/login'">Login</a>
+        <?php endif;
+          ?>
+    </p>
 @endsection
 
 
@@ -37,10 +42,10 @@
 @section('content')
 
         <div class="row">
-          <div class="col-md-5">
+          <div class="col-md-6">
             <img style="width: 100%; float:left;" class="image1" src="https://www.roanoke.edu/images/diningservices/IMG_1620.JPG"></img>
           </div>
-          <div style="float: right;" class="col-md-5">
+          <div style="float: right;" class="col-md-6">
             <div class="text">
               <p><h2>Eat and Run!<h2></p>
               <p><h4 style="color: black;"> The Cavern, our "grab and go" eatery located on the lower level of the Colket Center, is operated by RC Dining Services. Guests can purchase drinks, burgers, salads, wraps, subs, etc., or use the meal plan to obtain lunch or dinner Monday through Friday from 11:00 am to 11:00 pm and Saturday evenings from 5:00 pm to 11:00 pm. "Trade Meals" are designed as meal equivalents for those on the meal plan.</h4></p>
