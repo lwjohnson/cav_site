@@ -12,18 +12,24 @@
 
 @section('heading')
     Order Page
-        <p style=" margin-right: 5%; float: right;">
-          <?php
-          if (RCAuth::check() || RCAuth::attempt()):
-            echo 'Logged in as ' . RCAuth::user()->username;
-            $loggedin = 1;
-          else: ?>
-          <a style="color:gray;" onclick="location.reload();location.href='https://login.roanoke.edu/login'">Login</a>
-          <?php
-          $loggedin = 0;
-         endif;
-          ?>
-    </p>
+    <p style=" margin-right: 5%; float: right;">
+      <?php
+      use App\Admins;
+      $Saved ?? '';
+      $s = $Saved ?? '';
+      $u = new Admins;
+      $u = null;
+      $loggedin = false;
+      if (RCAuth::attempt()):
+        echo 'Logged in as ' . RCAuth::user()->username;
+        $loggedin = true;
+        $u = Admins::where('username', RCAuth::user()->username)->first();
+        ?>
+        <a style="color:red;" onclick="location.reload();location.href='logout'">Logout</a>
+      <?php else: ?>
+      <a style="color:red;" onclick="location.reload();location.href='https://login.roanoke.edu/login'">Login</a>
+    <?php endif; ?>
+</p>
 
 @endsection
 

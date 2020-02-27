@@ -40,11 +40,16 @@ Route::get('logout', function() {
 Route::get('/orderOptions', 'EditOrderOptionsController@show');
 Route::post('/orderOptionsUpdate','EditOrderOptionsController@update');
 
-Route::post('/order','ReviewController@create');
+
 
 Route::get('/orderPage', 'OrderPageController@show');
 
+Route::get('/allorders', 'AllOrdersController@show');
+
+
+Route::post('/order','ReviewController@create');
 Route::get('/review-order/{orderid}', 'ReviewController@show');
+Route::get('/deleteOrder/{orderid}', 'ReviewController@delete');
 
 
 Route::get('/{any}', 'HomeController@show');

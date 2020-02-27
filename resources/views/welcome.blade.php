@@ -71,6 +71,7 @@
               <form target="_blank">
                 <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="menu" onclick="location.reload();location.href='https://www.roanoke.edu/inside/a-z_index/dining_services/the_cavern/cavern_menu'">View Menu</button>
                 <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="order" onclick="location.reload();location.href='orderPage'"> Place Order</button>
+                <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="order" onclick="location.reload();location.href='allorders'"> Review Orders</button>
               </form>
             </div>
           </div>

@@ -87,14 +87,7 @@ class ReviewController
 
 
     return view('review-order', [
-      'order'=>$order->id,
-      'name'=>$order->name,
-      'created'=>$order->created,
-      'entree'=>$order->entree,
-      'condiments'=>$order->condiments,
-      'toppings'=> $order->toppings,
-      'cheese'=>$order->cheese,
-      'fries'=>$order->fries
+      'o'=>$order
     ]);
   }
 
@@ -104,9 +97,19 @@ class ReviewController
   }
 
 
-  public function delete()
+  public function delete($orderid)
   {
+    if($orderid == 0)
+      abort(404);
 
+    $order = Orders::findOrFail($orderid);
+
+    $order->delete();
+
+    $f10orders = Orders::all();
+    return route('allorders', [
+      'orders'=>$f10orders
+    ]);
   }
 
 
