@@ -10,6 +10,8 @@
 
     protected $appends = ['display_name'];
 
+    protected $fillable = ['active'];
+
     public $incrementing = false;
 
   }

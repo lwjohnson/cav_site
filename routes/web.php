@@ -37,8 +37,8 @@ Route::get('logout', function() {
 });
 
 
-
-
+Route::get('/orderOptions', 'EditOrderOptionsController@show');
+Route::post('/orderOptionsUpdate','EditOrderOptionsController@update');
 
 Route::post('/order','ReviewController@create');
 

@@ -11,15 +11,15 @@
 
 
 @section('heading')
-at <a style="color:gray;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
+at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
 <p style=" margin-right: 5%; float: right;">
   <?php
   if (RCAuth::attempt()):
     echo 'Logged in as ' . RCAuth::user()->username;
     ?>
-    <a style="color:gray;" href="https://login.roanoke.edu/logout">Logout</a>
+    <a style="color:red;" href="https://login.roanoke.edu/logout">Logout</a>
   <?php else: ?>
-  <a style="color:gray;" href="https://login.roanoke.edu/login">Login</a>
+  <a style="color:red;" href="https://login.roanoke.edu/login">Login</a>
 <?php endif;
   ?>
 </p>
