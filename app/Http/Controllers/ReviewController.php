@@ -107,9 +107,7 @@ class ReviewController
     $order->delete();
 
     $f10orders = Orders::all();
-    return route('allorders', [
-      'orders'=>$f10orders
-    ]);
+    return redirect('allorders');
   }
 
 
