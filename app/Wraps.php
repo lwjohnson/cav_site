@@ -6,6 +6,11 @@
 
   class Wraps extends Model
   {
+    protected $connection = 'sqlsrv';
+
+    protected $appends = ['display_name'];
+
+    public $incrementing = false;
 
   }
 
