@@ -13,21 +13,9 @@
 @section('heading')
         at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
         <p style=" margin-right: 5%; float: right;">
-          <?php
-          use App\Admins;
-
-          $u = new Admins;
-          $u = null;
-          if (RCAuth::attempt()):
-            echo 'Logged in as ' . RCAuth::user()->username . "&nbsp&nbsp&nbsp";
-
-            $u = Admins::where('username', RCAuth::user()->username)->first();
-            ?>
-            <a style="color:red;" onclick="location.reload();location.href='logout'">Logout</a>
-          <?php else: ?>
-          <a style="color:red;" onclick="location.reload();location.href='https://login.roanoke.edu/login'">Login</a>
-        <?php endif; ?>
-    </p>
+          Logged in as {{ RCAuth::user()->username}}
+            <a style="color:red;" href="../logout" >Logout</a>
+        </p>
 @endsection
 
 
@@ -35,24 +23,7 @@
 
       <!--Begin Navigation Bar-->
 
-@php
-  if($u == null) :
-        $side_navigation = [
 
-          '<span class="far fa-home" aria-hidden="true"></span> Home'=>'https://www.roanoke.edu',
-          'Inside' =>'http://www.insideroanoke.com/'
-
-          ];
-    else:
-        $side_navigation = [
-
-          '<span class="far fa-home" aria-hidden="true"></span> Home'=>'https://www.roanoke.edu',
-          'Inside' =>'http://www.insideroanoke.com/',
-          'Edit Order Options' => 'orderOptions'
-          ];
-
-        endif;
-@endphp
 
       <!--End Navigation Bar-->
 

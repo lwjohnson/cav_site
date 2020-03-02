@@ -24,7 +24,7 @@ Route::get('/','HomeController@show');
 Route::get('login', function() {
 	$returnURL = Session::get('returnURL', Request::url() . '/../');
 	return RCAuth::redirectToLogin($returnURL);
-});
+})->name("login");
 
 /**
  * Logout route
@@ -34,23 +34,24 @@ Route::get('logout', function() {
 	RCAuth::logout();
 	$returnURL = "https://login.roanoke.edu/logout";
 	return Redirect::to($returnURL);
+})->name("logout");
+
+Route::middleware("force_login")->group(function () {
+	Route::post('/createTopping', 'EditOrderOptionsController@create');
+	Route::get('/orderOptions', 'EditOrderOptionsController@show');
+	Route::post('/orderOptionsUpdate','EditOrderOptionsController@update');
+
+
+
+	Route::get('/orderPage', 'OrderPageController@show');
+
+	Route::get('/allorders', 'AllOrdersController@show');
+
+
+	Route::post('/order','OrderPageController@create');
+	Route::get('/review-order/{orderid}', 'ReviewController@show');
+	Route::get('/deleteOrder/{orderid}', 'ReviewController@delete');
 });
-
-Route::post('/createTopping', 'EditOrderOptionsController@create');
-Route::get('/orderOptions', 'EditOrderOptionsController@show');
-Route::post('/orderOptionsUpdate','EditOrderOptionsController@update');
-
-
-
-Route::get('/orderPage', 'OrderPageController@show');
-
-Route::get('/allorders', 'AllOrdersController@show');
-
-
-Route::post('/order','ReviewController@create');
-Route::get('/review-order/{orderid}', 'ReviewController@show');
-Route::get('/deleteOrder/{orderid}', 'ReviewController@delete');
-
 
 Route::get('/{any}', 'HomeController@show');
 ?>

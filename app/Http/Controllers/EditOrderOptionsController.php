@@ -26,30 +26,30 @@ class EditOrderOptionsController
     $cond = Condiments::all();
     $top = Toppings::all();
 
-    for($i = 0; $i < 9; $i++){
+
+    foreach($cond as $condiment){
       $matched = 0;
-      foreach(request()->condiments as $c) {
-        if($cond[$i]->condiment == $c){
-          Condiments::where('id', $i+1)->first()->update(['active'=> 1]);
+      foreach(request()->condiments as $condimentr) {
+
+        if($condiment->condiment == $condimentr){
+          Condiments::where('condiment', $condimentr)->first()->update(['active'=> 1]);
           $matched = 1;
         }
       }
       if($matched == 0)
-        Condiments::where('id', $i+1)->first()->update(['active'=> 0]);
-
+        Condiments::where('condiment', $condiment->condiment)->first()->update(['active'=> 0]);
     }
 
-    for($i = 0; $i < 5; $i++){
+    foreach($top as $topping){
       $matched = 0;
-      foreach(request()->toppings as $t) {
-        if($top[$i]->topping == $t){
-          Toppings::where('id', $i+1)->first()->update(['active'=> 1]);
+      foreach(request()->toppings as $toppingr) {
+        if($topping->topping == $toppingr){
+          Toppings::where('topping', $toppingr)->first()->update(['active'=> 1]);
           $matched = 1;
         }
       }
       if($matched == 0)
-        Toppings::where('id', $i+1)->first()->update(['active'=> 0]);
-
+        Toppings::where('topping', $topping->topping)->first()->update(['active'=>0]);
     }
 
 
@@ -64,22 +64,18 @@ class EditOrderOptionsController
 
   public function create()
   {
-    $top = new Toppings;
-    $count = 1;
-    $top = Toppings::where('id', $count)->first();
-    while($top != null){
-      $count= $count + 1;
-      $top = Toppings::where('id', $count)->first();
 
+    $count = 1;
+    $last = Toppings::where('id', $count)->first();
+    while($last != null){
+      $count= $count + 1;
+      $last = Toppings::where('id', $count)->first();
     }
     $lastid = Toppings::where('id', $count-1)->first();
-    dump($lastid);
-    dump($top);
-
+    $top = new Toppings;
     $top->id = $lastid->id + 1;
     $top->topping = request()->t;
     $top->active = 1;
-    dd($lastid);
     $top->save();
 
     return redirect('orderOptions');

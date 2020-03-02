@@ -11,7 +11,7 @@
 
     protected $appends = ['display_name'];
 
-    protected $fillable = ['active'];
+    protected $fillable = ['id', 'topping','active'];
 
     public $incrementing = false;
 

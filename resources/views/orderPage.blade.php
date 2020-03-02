@@ -13,85 +13,45 @@
 @section('heading')
     Order Page
     <p style=" margin-right: 5%; float: right;">
-      <?php
-      use App\Admins;
-      $Saved ?? '';
-      $s = $Saved ?? '';
-      $u = new Admins;
-      $u = null;
-      $loggedin = false;
-      if (RCAuth::attempt()):
-        echo 'Logged in as ' . RCAuth::user()->username;
-        $loggedin = true;
-        $u = Admins::where('username', RCAuth::user()->username)->first();
-        ?>
-        <a style="color:red;" onclick="location.reload();location.href='logout'">Logout</a>
-      <?php else: ?>
-      <a style="color:red;" onclick="location.reload();location.href='https://login.roanoke.edu/login'">Login</a>
-    <?php endif; ?>
-</p>
+      Logged in as {{ RCAuth::user()->username}}
+        <a style="color:red;" href="logout">Logout</a>
+    </p>
 
 @endsection
 
-
-@php
-        $side_navigation = [
-          '<span class="far fa-home" aria-hidden="true"></span> Home'=>'https://www.roanoke.edu',
-          'Inside' =>'http://www.insideroanoke.com/'];
-@endphp
+@section("javascript")
+  <script>
+   $(document).ready(function(){
+     $(".entree_choice").click(() => {
+         var val = $("input[name=entree_choice]:checked").val();
+         $(".condiment").show();
+         $(".t_c_f").show();
+         $(".rest").show();
+         if(val == "burger"){
+           $(".burger_stuff").show();
+           $(".wraps").hide();
+         } else {
+           $(".wraps").show();
+           $(".burger_stuff").hide();
+         }
+     });
+   });
+  </script>
+@endsection
 
 
 @section('content')
-<script>
 
- $(document).ready(function(){
-   $(".entree_choice").click(() => {
-       var val = $("input[name=entree_choice]:checked").val();
-       if(val == "burger"){
-         $(".condiment").show();
-         $(".burger_stuff").show();
-         $(".wraps").hide();
-         $(".t_c_f").show();
-         $(".rest").show();
-       } else if (val == "wrap") {
-         $(".condiment").show();
-         $(".wraps").show();
-         $(".burger_stuff").hide();
-         $(".t_c_f").show();
-         $(".rest").show();
-       }
-   });
-
-
-
-
-   function main(){
-
-     $(".condiment").hide();
-     $(".burgers").hide();
-     $(".wraps").hide();
-     $(".t_c_f").hide();
-     $(".rest").hide();
-
-   }
-   main();
- });
-</script>
   <!--End Jquery-->
-    <?php if($loggedin): ?>
     <!--Contianer for name, entree choice, condements, etc. -->
     <div  class="all" class = "container-fluid padded">
 
       <!--Entree radio button selection-->
-      <form onsubmit="" action="order" method="POST">
+      <form onsubmit="" action="{{action("OrderPageController@create")}}" method="POST">
         @csrf
         <input type="hidden" name="name" value="<?php echo RCAuth::user()->username;?>">
         <div class="nameArea col-md-6">
-          Order For: <?php echo RCAuth::user()->username;?>
-
-
-            <p class="is-danger"><?php echo $errors->first(); ?></p>
-
+          Order For: {{RCAuth::user()->username}}<br>
           <label for="entree_type">Entree:</label>
           <div id="entree_type">
             <input type="radio" class ="entree_choice"  name="entree_choice"
@@ -114,27 +74,26 @@
             <!--Entrees-->
             <div class="entOptions col-md-6">
               <!--Burger options and select button-->
-              <div class="burger_stuff">
+              <div class="burger_stuff" style="display: none">
                 <label for="burgers">Burgers</label>
                 <select name="burger_choice" id="burgers" class="form-control">
-                  <?php foreach($burgers as $b):
-                    if($b->active ==1): ?>
-                      <option value="{{$b->entree}}">{{$b->entree}}</option>
-                    <?php endif;
-                  endforeach;?>
+                  @foreach($burgers as $burger)
+                    @if($burger->active ==1)
+                      <option value="{{$burger->entree}}">{{$burger->entree}}</option>
+                    @endif
+                  @endforeach
                 </select>
               </div>
 
               <!--Wrap options and select button-->
-              <div class="wraps">
+              <div class="wraps" style="display: none">
                 <label for="wraps">Wraps</label>
                 <select name="wrap_choice" id="wraps" class="form-control">
-                  <?php foreach($wraps as $w):
-                    if($w->active ==1): ?>
-                      <option value="{{$w->entree}}">{{$w->entree}}</option>
-                    <?php endif;
-                  endforeach;?>
-
+                  @foreach($wraps as $wrap)
+                    @if($wrap->active ==1)
+                      <option value="{{$wrap->entree}}">{{$wrap->entree}}</option>
+                    @endif
+                  @endforeach
                 </select>
               </div>
             </div>
@@ -143,26 +102,25 @@
 
 
           <!--Condiments selection-->
-          <div class="row condiment">
+          <div class="row condiment" style="display: none">
             <!--Seperation from Entrees to condiments-->
             <hr/>
             <label for="condiments">Condiments</label>
             <div id="condiments">
               <div class="col-md-4">
-              <?php
-              $count = 3;
-              foreach ($condiments as $c):
-                if($c->active == 1):
-                  if($count == 0):?>
+              <?php $count = 3; ?>
+              @foreach ($condiments as $condiment)
+                @if($condiment->active == 1)
+                  @if($count == 0)
                   </div>
                     <div class="col-md-4">
-                    <?php $count = 3;
-                  endif;?>
+                    <?php $count = 3;?>
+                  @endif
                   <input type="checkbox" method="post" name="condiments[]"
-                    value="{{$c->condiment}}">{{$c->condiment}}<br>
-                  <?php $count=$count - 1;
-                endif;
-              endforeach; ?>
+                    value="{{$condiment->condiment}}">{{$condiment->condiment}}<br>
+                  <?php $count--;?>
+                @endif
+              @endforeach
             </div>
           </div>
         </div>
@@ -170,7 +128,7 @@
 
           <hr/>
           <!-- container for toppings, cheese, and fries -->
-          <div class="row t_c_f">
+          <div class="row t_c_f" style="display: none">
             <!--Seperation from condiments to Toppings-->
 
             <!--Toppings container-->
@@ -178,12 +136,12 @@
               <label for="toppings">Toppings</label>
               <div class="toppings">
                 <input type="hidden" name="toppings[]" value="None">
-                <?php foreach ($toppings as $topping):
-                  if($topping->active == 1) : ?>
+                @foreach ($toppings as $topping)
+                  @if($topping->active == 1)
                   <input type="checkbox" method="post" name="toppings[]"
                     value="{{$topping->topping}}">{{$topping->topping}}<br>
-                  <?php endif;
-                endforeach; ?>
+                  @endif
+                @endforeach
                 <br>
               </div>
             </div>
@@ -218,11 +176,6 @@
         </div>
       </form>
     </div>
-  <?php else: ?>
-    <div class="login">
-      <h3>Must Login before ordering.</h3>
-    </div>
-  <?php endif;?>
 
 @endsection
 

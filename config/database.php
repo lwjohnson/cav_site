@@ -87,9 +87,6 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
-            'prefix' => '',
-            'prefix_indexes' => true,
-            'pooling'=>false
         ],
         'DataMart' => [
             'driver' => 'sqlsrv',

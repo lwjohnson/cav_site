@@ -8,10 +8,19 @@
   {
 
     protected $connection = 'sqlsrv';
+    protected $primaryKey = "id";
+    protected $table      = "orders";
 
-    protected $appends = ['display_name'];
 
-    public $incrementing = false;
+    public function condiments()
+    {
+      return $this->hasMany(Condiments::class);
+    }
+
+    public function toppings()
+    {
+      return $this->hasMany(Toppings::class);
+    }
 
   }
 

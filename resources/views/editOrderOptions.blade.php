@@ -13,50 +13,25 @@
 @section('heading')
     Order Page
     <p style=" margin-right: 5%; float: right;">
-      <?php
-      use App\Admins;
-      $Saved ?? '';
-      $s = $Saved ?? '';
-      $u = new Admins;
-      $u = null;
-      if (RCAuth::attempt()):
-        echo 'Logged in as ' . RCAuth::user()->username;
-
-        $u = Admins::where('username', RCAuth::user()->username)->first();
-        ?>
-        <a style="color:red;" onclick="location.reload();location.href='logout'">Logout</a>
-      <?php else: ?>
-      <a style="color:red;" onclick="location.reload();location.href='https://login.roanoke.edu/login'">Login</a>
-    <?php endif; ?>
-</p>
+      Logged in as {{ RCAuth::user()->username}}
+        <a style="color:red;" href="../logout">Logout</a>
+    </p>
 
 @endsection
 
-
-@php
-        $side_navigation = [
-          '<span class="far fa-home" aria-hidden="true"></span> Home'=>'https://www.roanoke.edu',
-          'Inside' =>'http://www.insideroanoke.com/'];
-@endphp
-
-
 @section('content')
-
-  <?php
-  if($u != null):
-    if($Saved ?? '' != null)
-      echo $Saved ?? '';?>
+ @if($is_admin)
   <!--End Jquery-->
     <!--Contianer for name, entree choice, condements, etc. -->
     <div  class="" class = "container-fluid padded">
 
       <!--Entree radio button selection-->
-      <form onsubmit="" action="orderOptionsUpdate" method="POST">
+      <form onsubmit="" action="{{action("EditOrderOptionsController@update")}}" method="POST">
         @csrf
 
-        <input type="hidden" name="name" value="<?php echo RCAuth::user()->username;?>">
+        <input type="hidden" name="name" value="{{RCAuth::user()->username}}">
 
-          Admin: <?php echo RCAuth::user()->username;?>
+          Admin: {{RCAuth::user()->username}}
 
           <br><br>
         <div class="rest">
@@ -71,24 +46,18 @@
             <label for="condiments">Condiments</label>
             <div id="condiments">
               <div class="col-md-4">
-              <?php
-              $count = 3;
-              foreach ($condiments as $c):
-                  if($count == 0):?>
+              <?php $count = 3; ?>
+              @foreach ($condiments as $c)
+                  @if($count == 0)
                   </div>
                     <div class="col-md-4">
-                    <?php $count = 3;
-                  endif;?>
+                    <?php $count = 3; ?>
+                  @endif
                   <input type="checkbox" method="post" name="condiments[]"
-                    value="{{$c->condiment}}"
-                     <?php
-                        if($c->active == 1) : ?>
-                        checked="true"
-
-                    <?php endif;?>  >{{$c->condiment}}<br>
-                  <?php $count=$count - 1;
-
-              endforeach; ?>
+                  value="{{$c->condiment}}"
+                  @if($c->active == 1) checked="true" @endif>{{$c->condiment}}<br>
+                  <?php $count--;?>
+              @endforeach
             </div>
           </div>
         </div>
@@ -103,16 +72,11 @@
               <label for="toppings">Toppings</label>
               <div class="toppings">
                 <input type="hidden" name="toppings[]" value="None">
-                <?php foreach ($toppings as $topping): ?>
-                  <input type="checkbox" method="post" name="toppings[]"
-                    value="{{$topping->topping}}"
-                    <?php
-                       if($topping->active == 1) : ?>
-                       checked="true"
-
-                   <?php endif;?>  >{{$topping->topping}}<br>
-
-                <?php endforeach; ?>
+                @foreach ($toppings as $topping)
+                  <input type="checkbox" method="post" name="toppings[]" value="{{$topping->topping}}"
+                       @if($topping->active == 1) checked="true" @endif
+                     >{{$topping->topping}}<br>
+                @endforeach
                 <br>
               </div>
             </div>
@@ -126,18 +90,12 @@
           <br><br>
         </div>
       </form>
-      <form action="createTopping" method="POST">
+      <form action="{{action("EditOrderOptionsController@create")}}" method="POST">
         {{ csrf_field() }}
         <label for="t">New Topping</label>
         <input type="text" id="t" name="t" required></input>
         <button for="newt" type="submit" class="btn btn-default submit" value="newt">Add Topping</button>
       </form>
     </div>
-  <?php else: ?>
-    <h3>Not logged in to admin account.<h3>
-    <?php endif;?>
-
-
-
-
+  @endif
 @endsection

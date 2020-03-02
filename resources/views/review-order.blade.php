@@ -13,21 +13,8 @@
 @section('heading')
 at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
 <p style=" margin-right: 5%; float: right;">
-  <?php
-  use App\Admins;
-  $Saved ?? '';
-  $s = $Saved ?? '';
-  $u = new Admins;
-  $u = null;
-  if (RCAuth::attempt()):
-    echo 'Logged in as ' . RCAuth::user()->username;
-
-    $u = Admins::where('username', RCAuth::user()->username)->first();
-    ?>
-    <a style="color:red;" onclick="location.reload();location.href='../logout'">Logout</a>
-  <?php else: ?>
-  <a style="color:red;" onclick="location.reload();location.href='https://login.roanoke.edu/login'">Login</a>
-<?php endif; ?>
+  Logged in as {{ RCAuth::user()->username}}
+    <a style="color:red;" href="../logout">Logout</a>
 </p>
 @endsection
 
@@ -36,17 +23,20 @@ at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke 
 
       <!--Begin Navigation Bar-->
 
-@php
-        $side_navigation = [
-          '<span class="far fa-home" aria-hidden="true"></span> Home'=>'https://www.roanoke.edu',
-          'Inside' =>'http://www.insideroanoke.com/'];
-@endphp
-
       <!--End Navigation Bar-->
 
       <!--Begin Content-->
 @section('content')
 <div class="order_details">
+  <h1>Order Details</h1>
+  <h3>Order Number: {{$order->id}}</h3>
+  <h4>Created On: {{\Carbon\Carbon::parse($order->created_at)->format("n/j/Y g:i a")}}</h4>
+  <h4>For: {{$order->name}}</h4>
+  <h4>For: {{$order->entree}}</h4>
+  <h4>Condiments: {{$order->condiments}}</h4>
+  <h4>Toppings: {{$order->toppings}}</h4>
+  <h4>Cheese: {{$order->cheese}}</h4>
+  <h4>Fries: {{determine_fries($order->fries)}}</h4>
   <?php
 
       function determine_fries($f) {
@@ -57,25 +47,14 @@ at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke 
         }
       }
 
-
-
-      echo "<h1>Order Details\n</h1>";
-      echo "<h3>Order Number: $o->id\n</h3>";
-      echo "<h4>Created on: $o->created.\n</h4>";
-      echo "<h4>For: $o->name.\n</h4>";
-      echo "<h4>Entree: $o->entree.\n</h4>";
-      echo "<h4>Condiments: $o->condiments.\n</h4>";
-      echo "<h4>Toppings: $o->toppings\n</h4>";
-      echo "<h4>Cheese: $o->cheese.</h4>";
-      echo "<h4> Fries: " . determine_fries($o->fries) . ".\n</h4>";
   ?>
 </div>
 
-<?php if($u != null): ?>
-  <a style="width: 30px; height: 30; color: white; background-color: red; " href="../deleteOrder/<?php echo $o->id;?>">Complete/Delete Order</a><br><br>
-<?php endif;?>
+@if($is_admin)
+  <a style="width: 30px; height: 30; color: white; background-color: red; " href="{{action('ReviewController@delete', ['orderid' => $order->id])}}">Complete/Delete Order</a><br><br>
+@endif
 <!--End Content-->
 <a href="../" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>
-<a href="../orderPage" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Order</a>
-<a href="../allorders" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">All Orders</a>
+<a href="{{action("OrderPageController@show")}}" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Order</a>
+<a href="{{action("AllOrdersController@show")}}" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">All Orders</a>
 @endsection
