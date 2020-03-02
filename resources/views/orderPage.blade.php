@@ -51,13 +51,14 @@
         @csrf
         <input type="hidden" name="name" value="<?php echo RCAuth::user()->username;?>">
         <div class="nameArea col-md-6">
-          Order For: {{RCAuth::user()->username}}<br>
+          <label>Order For: {{RCAuth::user()->username}}</label><br>
           <label for="entree_type">Entree:</label>
           <div id="entree_type">
-            <input type="radio" class ="entree_choice"  name="entree_choice"
-              value="burger" required> Burger<br>
-            <input type="radio" class="entree_choice" name="entree_choice"
-              value="wrap" required> Wrap<br>
+            <label>
+              <input type="radio" class ="entree_choice"  name="entree_choice" value="burger" required> Burger<br>
+            </label><br><label>
+              <input type="radio" class="entree_choice" name="entree_choice" value="wrap" required> Wrap<br>
+            </label>
           </div>
 
         </div>
@@ -75,7 +76,7 @@
             <div class="entOptions col-md-6">
               <!--Burger options and select button-->
               <div class="burger_stuff" style="display: none">
-                <label for="burgers">Burgers</label>
+                <label for="burgers">Burgers:</label>
                 <select name="burger_choice" id="burgers" class="form-control">
                   @foreach($burgers as $burger)
                     @if($burger->active ==1)
@@ -87,7 +88,7 @@
 
               <!--Wrap options and select button-->
               <div class="wraps" style="display: none">
-                <label for="wraps">Wraps</label>
+                <label for="wraps">Wraps:</label>
                 <select name="wrap_choice" id="wraps" class="form-control">
                   @foreach($wraps as $wrap)
                     @if($wrap->active ==1)
@@ -103,24 +104,20 @@
 
           <!--Condiments selection-->
           <div class="row condiment" style="display: none">
-            <!--Seperation from Entrees to condiments-->
-            <hr/>
-            <label for="condiments">Condiments</label>
-            <div id="condiments">
-              <div class="col-md-4">
-              <?php $count = 3; ?>
-              @foreach ($condiments as $condiment)
-                @if($condiment->active == 1)
-                  @if($count == 0)
+            <div class="col-md-12">
+              <!--Seperation from Entrees to condiments-->
+              <hr/>
+              <label for="condiments">Condiments:</label>
+              <div class="condiments">
+                @foreach ($condiments as $condiment)
+                  <div class="col-md-4">
+                    <label>
+                      <input type="checkbox" method="post" name="condiments[]"
+                        value="{{$condiment->id}}"> {{$condiment->condiment}}
+                    </label>
                   </div>
-                    <div class="col-md-4">
-                    <?php $count = 3;?>
-                  @endif
-                  <input type="checkbox" method="post" name="condiments[]"
-                    value="{{$condiment->condiment}}">{{$condiment->condiment}}<br>
-                  <?php $count--;?>
-                @endif
-              @endforeach
+                @endforeach
+              </div>
             </div>
           </div>
         </div>
@@ -133,14 +130,15 @@
 
             <!--Toppings container-->
             <div class="col-md-6">
-              <label for="toppings">Toppings</label>
+              <label for="toppings">Toppings:</label>
               <div class="toppings">
-                <input type="hidden" name="toppings[]" value="None">
                 @foreach ($toppings as $topping)
-                  @if($topping->active == 1)
-                  <input type="checkbox" method="post" name="toppings[]"
-                    value="{{$topping->topping}}">{{$topping->topping}}<br>
-                  @endif
+                  <div class="col-md-6">
+                    <label>
+                      <input type="checkbox" method="post" name="toppings[]"
+                    value="{{$topping->id}}"> {{$topping->topping}}<br>
+                  </label>
+                </div>
                 @endforeach
                 <br>
               </div>
@@ -149,21 +147,25 @@
             <div class="col-md-6">
               <!--Cheese container-->
               <div class="burger_stuff">
-                <label for="cheese">Cheese</label>
+                <label for="cheese">Cheese:</label>
                 <div class="cheese">
-                  <input type="radio" name="cheese" value="American"> American<br>
-                  <input type="radio" name="cheese" value="Provolone"> Provolone<br>
-                  <input type="radio" name="cheese" value="None" checked="true"> No Cheese<br>
-
+                  <label>
+                    <input type="radio" name="cheese" value="American"> American<br>
+                  </label><br><label>
+                    <input type="radio" name="cheese" value="Provolone"> Provolone<br>
+                  </label>
                 </div>
               </div>
               <br>
 
               <!--Fries container-->
-              <label for="fries">Fries</label>
+              <label for="fries">Fries:</label>
               <div id="fries">
+                <label>
                   <input type="radio" name="fries" value="1" > Yes<br>
+                </label><br><label>
                   <input type="radio" name="fries" value="0" required> No<br>
+                </label>
               </div>
             </div>
           </div>

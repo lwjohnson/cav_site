@@ -34,53 +34,39 @@
           Admin: {{RCAuth::user()->username}}
 
           <br><br>
-        <div class="rest">
+
+        <div class="col-md-12 rest">
           <!--Name and entree choice-->
 
 
 
           <!--Condiments selection-->
-          <div class="row condiment col-md-6">
-            <!--Seperation from Entrees to condiments-->
-
-            <label for="condiments">Condiments</label>
-            <div id="condiments">
-              <div class="col-md-4">
-              <?php $count = 3; ?>
+          <div class="condiment col-md-6">
+            <label>Condiments</label>
+            <div class="condiments">
+              <input type="hidden" name="toppings[]" value="None">
               @foreach ($condiments as $c)
-                  @if($count == 0)
-                  </div>
                     <div class="col-md-4">
-                    <?php $count = 3; ?>
-                  @endif
-                  <input type="checkbox" method="post" name="condiments[]"
-                  value="{{$c->condiment}}"
+                      <input type="checkbox" method="post" name="condiments[]"value="{{$c->condiment}}"
                   @if($c->active == 1) checked="true" @endif>{{$c->condiment}}<br>
-                  <?php $count--;?>
+                  </div>
+
               @endforeach
             </div>
           </div>
-        </div>
 
 
-
-          <!-- container for toppings, cheese, and fries -->
-          <div class="row toppings">
-            <!--Seperation from condiments to Toppings-->
-            <!--Toppings container-->
             <div class="col-md-6">
               <label for="toppings">Toppings</label>
               <div class="toppings">
                 <input type="hidden" name="toppings[]" value="None">
                 @foreach ($toppings as $topping)
                   <input type="checkbox" method="post" name="toppings[]" value="{{$topping->topping}}"
-                       @if($topping->active == 1) checked="true" @endif
-                     >{{$topping->topping}}<br>
+                       @if($topping->active == 1) checked="true" @endif>{{$topping->topping}}<br>
                 @endforeach
                 <br>
-              </div>
-            </div>
 
+            </div>
           </div>
           <br>
 
@@ -90,12 +76,24 @@
           <br><br>
         </div>
       </form>
+
+
       <form action="{{action("EditOrderOptionsController@create")}}" method="POST">
         {{ csrf_field() }}
         <label for="t">New Topping</label>
         <input type="text" id="t" name="t" required></input>
         <button for="newt" type="submit" class="btn btn-default submit" value="newt">Add Topping</button>
       </form>
-    </div>
+      <form action="{{action("EditOrderOptionsController@create")}}" method="POST">
+        {{ csrf_field() }}
+        <label for="t">New Condiment</label>
+        <input type="text" id="c" name="c" required></input>
+        <button for="newc" type="submit" class="btn btn-default submit" value="newc">Add Condiment</button>
+      </form>
+
+    <a href="../" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>
+    <a href="{{action("OrderPageController@show")}}" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Order</a>
+    <a href="{{action("AllOrdersController@show")}}" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">All Orders</a>
+</div>
   @endif
 @endsection

@@ -44,12 +44,12 @@ class EditOrderOptionsController
       $matched = 0;
       foreach(request()->toppings as $toppingr) {
         if($topping->topping == $toppingr){
-          Toppings::where('topping', $toppingr)->first()->update(['active'=> 1]);
+          Toppings::where('id', $topping->id)->first()->update(['active'=> 1]);
           $matched = 1;
         }
       }
       if($matched == 0)
-        Toppings::where('topping', $topping->topping)->first()->update(['active'=>0]);
+        Toppings::where('id', $topping->id)->first()->update(['active'=>0]);
     }
 
 
@@ -64,24 +64,43 @@ class EditOrderOptionsController
 
   public function create()
   {
+    if(request()->t){
+      $top = new Toppings;
+      $top->topping = request()->t;
+      $top->active = 1;
+      $top->save();
 
-    $count = 1;
-    $last = Toppings::where('id', $count)->first();
-    while($last != null){
-      $count= $count + 1;
-      $last = Toppings::where('id', $count)->first();
+    } else {
+
+      $cond = new Condiments;
+      $cond->condiment = request()->c;
+      $cond->active = 1;
+      $cond->save();
+
     }
-    $lastid = Toppings::where('id', $count-1)->first();
-    $top = new Toppings;
-    $top->id = $lastid->id + 1;
-    $top->topping = request()->t;
-    $top->active = 1;
-    $top->save();
-
     return redirect('orderOptions');
 
   }
 
+  public function store()
+  {
+
+    $count = 1;
+    $last = Condiments::where('id', $count)->first();
+    while($last != null){
+      $count= $count + 1;
+      $last = Condiments::where('id', $count)->first();
+    }
+    $lastid =Condimentss::where('id', $count-1)->first();
+    $cond = new Condiments;
+    $cond->id = $lastid->id + 1;
+    $cond->condiment = request()->t;
+    $cond->active = 1;
+    $cond->save();
+
+    return redirect('orderOptions');
+
+  }
 
 
 

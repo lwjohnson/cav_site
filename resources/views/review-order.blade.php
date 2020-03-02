@@ -33,8 +33,23 @@ at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke 
   <h4>Created On: {{\Carbon\Carbon::parse($order->created_at)->format("n/j/Y g:i a")}}</h4>
   <h4>For: {{$order->name}}</h4>
   <h4>For: {{$order->entree}}</h4>
-  <h4>Condiments: {{$order->condiments}}</h4>
-  <h4>Toppings: {{$order->toppings}}</h4>
+
+  <h4>Condiments:
+    <ul>
+    @foreach ($order->cond as $cond)
+      <li>~{{$cond->condiment}} </li>
+    @endforeach
+    </ul>
+  </h4>
+
+  <h4>Toppings:
+    <ul>
+    @foreach ($order->top as $top)
+      <li>~{{$top->topping}} </li>
+    @endforeach
+    </ul>
+  </h4>
+
   <h4>Cheese: {{$order->cheese}}</h4>
   <h4>Fries: {{determine_fries($order->fries)}}</h4>
   <?php
@@ -51,7 +66,7 @@ at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke 
 </div>
 
 @if($is_admin)
-  <a style="width: 30px; height: 30; color: white; background-color: red; " href="{{action('ReviewController@delete', ['orderid' => $order->id])}}">Complete/Delete Order</a><br><br>
+  <a style="color: white; background-color: gray; " href="{{action('ReviewController@delete', ['orderid' => $order->id])}}">Complete/Delete Order</a><br><br>
 @endif
 <!--End Content-->
 <a href="../" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>

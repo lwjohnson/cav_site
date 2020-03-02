@@ -13,7 +13,7 @@ class AllOrdersController
 
   public function show()
   {
-    $f10orders = Orders::all();
+    $f10orders = Orders::latest()->simplePaginate(15);
     return view('allorders', [
       'orders'=>$f10orders
     ]);

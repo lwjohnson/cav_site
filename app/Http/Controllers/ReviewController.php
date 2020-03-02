@@ -6,16 +6,16 @@ use App\Orders;
 use App\Http\Controllers\Auth;
 class ReviewController extends Controller
 {
-  
+
   public function show($orderid)
   {
     if($orderid == 0)
       abort(404);
 
-    $order = Orders::findOrFail($orderid);
+    $order = Orders::with(["cond","top"])->findOrFail($orderid);
 
     return view('review-order', [
-      'order'=>$order
+      'order'=> $order
     ]);
   }
 

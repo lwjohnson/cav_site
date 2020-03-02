@@ -10,6 +10,8 @@ use App\Burgers;
 use RCAuth;
 use Redirect;
 use Request;
+use App\OrderCondimentMap;
+use App\OrderToppingMap;
 
 class OrderPageController
 {
@@ -42,51 +44,43 @@ class OrderPageController
     else
       $order->entree = request()->wrap_choice;
 
-    $condiments = request()->condiments;
-    $c="";
-    $r=0;
-    if($condiments != null) {
-      foreach ($condiments as $value) {
-        if($r!=0)
-          $c = $value . ", ".$c;
-        else {
-          $c = $value . $c;
-          $r++;
-        }
-      }
-    }
-    if($c == "")
-      $c = "None";
-    $order->condiments = $c;
 
-    $toppings = request()->toppings;
-    $t=".";
-    $r = 0;
-    foreach ($toppings as $value) {
-      if($r!=0){
-        $t = $value . ", ".$t;
-      }else {
-        if($value != "None"){
-          $t = $value . $t;
-          $r++;
-        }
-      }
-    }
-    if($t == ".")
-      $t = "None";
-    $order->toppings = $t;
     $order->cheese = request()->cheese;
     $order->fries = request()->fries;
-
     $order->save();
-    return redirect('/review-order/' . $order->id);
+
+    $condiments = Condiments::all();
+    $req_conds = request()->condiments;
+
+    if(!empty($req_conds))
+      foreach ($req_conds as $r_cond) {
+        $cond_new = new OrderCondimentMap;
+        $cond_new->fkey_order = $order->id;
+        $cond_new->fkey_condiment = $r_cond;
+        $cond_new->save();
+      }
+
+
+    $toppings = Toppings::all();
+    $req_tops = request()->toppings;
+
+    if(!empty($req_tops))
+      foreach ($req_tops as $r_top) {
+        $top_new = new OrderToppingMap;
+        $top_new->fkey_topping = $r_top;
+        $top_new->fkey_order = $order->id;
+
+        $top_new->save();
+      }
+
+    return redirect()->action("ReviewController@show", ["orderid" => $order->id]);
   }
 
   public function show()
   {
     return view('orderPage', [
-      'toppings'=>Toppings::all(),
-      'condiments'=>Condiments::all(),
+      'toppings'=>Toppings::where("active", 1)->get(),
+      'condiments'=>Condiments::where("active", 1)->get(),
       'wraps'=>Wraps::all(),
       'burgers'=>Burgers::all()
     ]);

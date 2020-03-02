@@ -12,14 +12,14 @@
     protected $table      = "orders";
 
 
-    public function condiments()
+    public function cond()
     {
-      return $this->hasMany(Condiments::class);
+      return $this->hasManyThrough(\App\Condiments::class, \App\OrderCondimentMap::class, "fkey_order", "id", "id", "fkey_condiment");
     }
 
-    public function toppings()
+    public function top()
     {
-      return $this->hasMany(Toppings::class);
+      return $this->hasManyThrough(\App\Toppings::class, \App\OrderToppingMap::class, "fkey_order", "id", "id", "fkey_topping" );
     }
 
   }

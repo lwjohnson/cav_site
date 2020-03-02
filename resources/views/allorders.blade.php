@@ -24,15 +24,14 @@ at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke 
 @section('content')
 <div class="order_details">
   @foreach($orders as $order)
-    @if($order->id != 0)
-      <h2><a style='color:maroon;' href='review-order/{{$order->id}}'> Order {{$order->id}} for {{$order->name}} </a></h2>
+      <h4><a style='color:maroon;' href='review-order/{{$order->id}}'> Order {{$order->id}} for {{$order->name}} </a>
       @if($is_admin)
-        <a style="width: 30px; height: 30; color: white; background-color: red; " href="deleteOrder/{{$order->id}}">Complete/Delete Order</a><br><br>
+        <a style="color: white; background-color: gray; " href="deleteOrder/{{$order->id}}">Complete/Delete Order</a><br><br>
       @endif
-      <br>
-    @endif
+    </h4>
   @endforeach
 </div>
+{{ $orders->links() }}
 
 <!--End Content-->
 <a href="./" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>
