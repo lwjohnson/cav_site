@@ -13,9 +13,9 @@ class AllOrdersController
 
   public function show()
   {
-    $f10orders = Orders::latest()->simplePaginate(15);
+    $f15orders = Orders::latest()->simplePaginate(15);
     return view('allorders', [
-      'orders'=>$f10orders
+      'orders'=>$f15orders
     ]);
   }
 }

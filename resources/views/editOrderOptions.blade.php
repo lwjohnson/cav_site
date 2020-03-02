@@ -91,7 +91,7 @@
         <button for="newc" type="submit" class="btn btn-default submit" value="newc">Add Condiment</button>
       </form>
 
-    <a href="../" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>
+    <a href="./" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>
     <a href="{{action("OrderPageController@show")}}" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Order</a>
     <a href="{{action("AllOrdersController@show")}}" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">All Orders</a>
 </div>
