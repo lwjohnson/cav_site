@@ -36,7 +36,7 @@ Route::get('logout', function() {
 	return Redirect::to($returnURL);
 });
 
-
+Route::post('/createTopping', 'EditOrderOptionsController@create');
 Route::get('/orderOptions', 'EditOrderOptionsController@show');
 Route::post('/orderOptionsUpdate','EditOrderOptionsController@update');
 

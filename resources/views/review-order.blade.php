@@ -72,7 +72,7 @@ at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke 
 </div>
 
 <?php if($u != null): ?>
-  <a style="width: 30px; height: 30; color: white; background-color: red; " href="../deleteOrder/<?php echo $o->id;?>">Delete Order</a><br><br>
+  <a style="width: 30px; height: 30; color: white; background-color: red; " href="../deleteOrder/<?php echo $o->id;?>">Complete/Delete Order</a><br><br>
 <?php endif;?>
 <!--End Content-->
 <a href="../" class="btn btn-primary "  style="margin-left: 20px;background-color: #333333;">Return To Cavern Homepage</a>

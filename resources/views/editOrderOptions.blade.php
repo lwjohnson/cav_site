@@ -116,6 +116,7 @@
                 <br>
               </div>
             </div>
+
           </div>
           <br>
 
@@ -124,6 +125,12 @@
             value="Submit Order">Save Changes</button>
           <br><br>
         </div>
+      </form>
+      <form action="createTopping" method="POST">
+        {{ csrf_field() }}
+        <label for="t">New Topping</label>
+        <input type="text" id="t" name="t" required></input>
+        <button for="newt" type="submit" class="btn btn-default submit" value="newt">Add Topping</button>
       </form>
     </div>
   <?php else: ?>

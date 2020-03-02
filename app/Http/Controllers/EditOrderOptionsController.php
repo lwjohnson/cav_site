@@ -61,4 +61,32 @@ class EditOrderOptionsController
       'Saved' => "Changes Saved!"
     ]);
   }
+
+  public function create()
+  {
+    $top = new Toppings;
+    $count = 1;
+    $top = Toppings::where('id', $count)->first();
+    while($top != null){
+      $count= $count + 1;
+      $top = Toppings::where('id', $count)->first();
+
+    }
+    $lastid = Toppings::where('id', $count-1)->first();
+    dump($lastid);
+    dump($top);
+
+    $top->id = $lastid->id + 1;
+    $top->topping = request()->t;
+    $top->active = 1;
+    dd($lastid);
+    $top->save();
+
+    return redirect('orderOptions');
+
+  }
+
+
+
+
 }
