@@ -11,10 +11,10 @@
 
 
 @section('heading')
-    Order Page
+    Edit Ordering Options
     <p style=" margin-right: 5%; float: right;">
       Logged in as {{ RCAuth::user()->username}}
-        <a style="color:red;" href="../logout">Logout</a>
+        <a style="color:maroon;" href="../logout">Logout</a>
     </p>
 
 @endsection

@@ -6,15 +6,15 @@
 
 
 @section('page_title')
-        Review Order
+        The Cavern
 @endsection
 
 
 @section('heading')
-at <a style="color:red;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
+  Review Orders
 <p style=" margin-right: 5%; float: right;">
   Logged in as {{ RCAuth::user()->username}}
-    <a style="color:red;" href="logout">Logout</a>
+    <a style="color:maroon;" href="logout">Logout</a>
 </p>
 
 @endsection
