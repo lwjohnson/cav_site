@@ -2,38 +2,29 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use Notifiable;
+    protected $table = 'DataMart.dbo.view_PersonBasic';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'email', 'password',
-    ];
+    protected $primaryKey = 'RCID';
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $connection = 'DataMart';
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    protected $appends = ['display_name'];
+
+    public $incrementing = false;
+
+    public function getDisplayNameAttribute() {
+      $from_name = $this->FirstName;
+
+      if(isset($this->Nickname) && !is_null($this->Nickname)) {
+        $from_name = $this->Nickname;
+      }
+
+      $from_name .= " " . $this->LastName;
+
+      return $from_name;
+    }
 }

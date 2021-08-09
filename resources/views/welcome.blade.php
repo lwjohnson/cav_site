@@ -1,100 +1,102 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('template')
 
-        <title>Laravel</title>
+@section('page_title')
+        The Cavern
+@endsection
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+@section('page_title')
+        The Cavern
+@endsection
 
-            .full-height {
-                height: 100vh;
-            }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+@section('heading')
+        at <a style="color:maroon;" target="_blank" href="https://www.roanoke.edu">Roanoke College</a>
+        <p style=" margin-right: 5%; float: right;">
+          Logged in as {{ RCAuth::user()->username}}
+            <a style="color:maroon;" href="logout" >Logout</a>
+        </p>
+@endsection
 
-            .position-ref {
-                position: relative;
-            }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+      <!--End Header-->
 
-            .content {
-                text-align: center;
-            }
+      <!--Begin Navigation Bar-->
 
-            .title {
-                font-size: 84px;
-            }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+      <!--End Navigation Bar-->
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+      <!--Begin Content-->
+@section('content')
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+        <div class="row">
+          <div class="col-md-6">
+            <img style="width: 100%; float:left;" class="image1" src="https://www.roanoke.edu/images/diningservices/IMG_1620.JPG"></img>
+          </div>
+          <div style="float: right;" class="col-md-6">
+            <div class="text">
+              <p><h2>Eat and Run!<h2></p>
+              <p><h4 style="color: black;"> The Cavern, our "grab and go" eatery located on the lower level of the Colket Center, is operated by RC Dining Services. Guests can purchase drinks, burgers, salads, wraps, subs, etc., or use the meal plan to obtain lunch or dinner Monday through Friday from 11:00 am to 11:00 pm and Saturday evenings from 5:00 pm to 11:00 pm. "Trade Meals" are designed as meal equivalents for those on the meal plan.</h4></p>
+              <p><h4 style="color: black;">The Cavern also offers staging, lighting and sound systems to accommodate dances, karaoke, bingo, poetry readings and any other events organized by the college community.</h4></p>
+              <form target="_blank">
+                <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="menu" onclick="location.reload();location.href='https://www.roanoke.edu/inside/a-z_index/dining_services/the_cavern/cavern_menu'">View Menu</button>
+                <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="order" onclick="location.reload();location.href='orderPage'"> Place Order</button>
+                <button style=" background-color: maroon;color: white;padding: 8px;" type="button" id="order" onclick="location.reload();location.href='allorders'"> Review Orders</button>
+              </form>
             </div>
+          </div>
         </div>
-    </body>
-</html>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="hours">
+              <table class="table table-striped table-bordered table-hover table-condensed">
+                <thead>
+                  <tr>
+                    <h2 id="hourstitle">Cavern Hours</h2>
+                  </tr>
+                  <tr>
+                    <th>Day</th>
+                    <th>Hours</th>
+                  </tr>
+                </thead>
+
+                  <tr class="data">
+                    <td>Monday</td>
+                    <td>11:00 am to 11:00 pm</td>
+                  <tr>
+                  <tr class="data">
+                    <td>Tuesday</td>
+                    <td>11:00 am to 11:00 pm</td>
+                  <tr>
+                  <tr class="data">
+                    <td>Wednesday</td>
+                    <td>11:00 am to 11:00 pm</td>
+                  <tr>
+                  <tr class="data">
+                    <td>Thursday</td>
+                    <td>11:00 am to 11:00 pm</td>
+                  <tr>
+                  <tr class="data">
+                    <td>Friday</td>
+                    <td>11:00 am to 11:00 pm</td>
+                  <tr>
+                  <tr class="data">
+                    <td>Saturday</td>
+                    <td>5:00 pm to 11:00 pm</td>
+                  <tr>
+                  <tr>
+                    <td colspan="2" id="sunday">Closed Sunday</td>
+                  <tr>
+
+                </table>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <img style="width:100%; margin-top: 20px; margin-bottom: 20px;" class="image2" src="https://www.roanoke.edu/images/diningservices/IMG_1618.JPG"></img>
+            </div>
+          </div>
+      </div>
+      <!--End Content-->
+@endsection

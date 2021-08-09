@@ -10,8 +10,9 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "^6.2",
-        "laravel/tinker": "^2.0"
+        "laravel/framework": "^6.0",
+        "laravel/tinker": "^2.0",
+        "roanokecollege/authentication": "*"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
@@ -25,6 +26,15 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
+
+    "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:roanokecollege/authentication.git"
+    }
+   ],
+
+
     "extra": {
         "laravel": {
             "dont-discover": []
@@ -39,6 +49,7 @@
             "database/factories"
         ]
     },
+
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
